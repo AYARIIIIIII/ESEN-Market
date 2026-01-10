@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - ESEN Market</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="img/esen.png" class="logoesen">
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="cta-btn">Contact Sellers</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+        <div class="form-box">
+            <h2>📩 Order / Request</h2>
+            <p style="text-align:center; color:#666; margin-bottom:20px;">Contact the seller directly.</p>
+            
+            <form onsubmit="submitForm(event)">
+                <label>Category:</label>
+                <select id="typeSelect" onchange="updateItems()" required>
+                    <option value="">-- Select Category --</option>
+                    <option value="Shop">Shop (Product)</option>
+                    <option value="Services">Service</option>
+                </select>
+
+                <label>Item Name:</label>
+                <select id="itemSelect" onchange="updateSellers()" required>
+                    <option value="">-- Select Category First --</option>
+                </select>
+
+                <label>Select Seller:</label>
+                <select id="sellerSelect" required>
+                    <option value="">-- Select Item First --</option>
+                </select>
+
+                <label>Your Name:</label>
+                <input type="text" placeholder="Your Full Name" required>
+
+                <label>Your Phone:</label>
+                <input type="text" placeholder="+216 ..." required>
+
+                <label>Message:</label>
+                <textarea rows="3" placeholder="Where can we meet?"></textarea>
+
+                <button type="submit">Send Request</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <button class="scroll-btn" onclick="scrollToTop()">⬆</button>
+        <div class="footer-content">
+            <div class="footer-credits">
+                <h4>Created By:</h4>
+                 <p>
+                    <a href="https://esen.rnu.tn/portail/" target="_blank" class="p-link">Ayari Med Ghassen</a>
+                    <a href="https://esen.rnu.tn/portail/" target="_blank" class="p-link">Med Amine Rouatbi</a>         
+                </p>
+            </div>
+            <div class="footer-nav">
+                <a href="index.html">Home</a> • 
+                <a href="shop.html">Shop</a> • 
+                <a href="services.html">Services</a>
+            </div>
+            <div>
+                <a href="https://esen.rnu.tn/portail/" target="_blank" class="uni-link">Go to University Website 🏛️</a>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

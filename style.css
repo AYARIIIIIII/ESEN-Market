@@ -1,0 +1,412 @@
+/* VERSION FINALE GIT */
+
+/* ==========================================================================
+   1. VARIABLES & POLICES (La "Palette de Peinture")
+   --------------------------------------------------------------------------
+   changer la couleur principale du site (le violet),
+   change juste le code hexadécimal de --primary ici.
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Couleurs Principales */
+    --primary: #6c5ce7;       /* Violet Principal (Boutons, titres) */
+    --primary-dark: #5649c0;  /* Violet Foncé (Au survol de la souris) */
+    --secondary: #a29bfe;     /* Violet Clair (Pour les dégradés) */
+    --accent: #fdcb6e;        /* Orange/Or (Pour attirer l'attention, ex: bouton retour haut) */
+    
+    /* Couleurs Neutres */
+    --dark: #2d3436;          /* Couleur du texte (Gris très foncé, mieux que noir pur) */
+    --light: #dfe6e9;         /* Gris clair (Bordures, arrière-plans légers) */
+    --white: #ffffff;         /* Blanc pur */
+    
+    /* Effets */
+    --shadow: 0 10px 30px rgba(0,0,0,0.1); /* Ombre douce utilisée sous les cartes */
+}
+
+/* ==========================================================================
+   2. RESET GLOBAL & STRUCTURE DU CORPS
+   --------------------------------------------------------------------------
+   On nettoie les styles par défaut du navigateur pour partir sur une base propre.
+   On utilise Flexbox sur le body pour garder le footer tout en bas.
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* IMPORTANT : Empêche les bordures d'agrandir les boîtes */
+    font-family: 'Poppins', sans-serif; /* Police d'écriture partout */
+}
+
+body {
+    background-color: #f8f9fa; /* Fond gris très pâle (plus doux pour les yeux) */
+    color: var(--dark);
+    line-height: 1.6;          /* Espacement entre les lignes de texte */
+    
+    /* Astuce pour coller le footer en bas (Sticky Footer) */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;         /* Force la page à faire au moins 100% de la hauteur de l'écran */
+}
+
+a { text-decoration: none; } /* Enlève le soulignement moche des liens par défaut */
+
+/* ==========================================================================
+   3. BARRE DE NAVIGATION (Header)
+   --------------------------------------------------------------------------
+   La barre reste collée en haut grâce à "position: sticky".
+   ========================================================================== */
+header {
+    background: var(--white);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Petite ombre sous la barre */
+    position: sticky;  /* La barre reste visible quand on scrolle */
+    top: 0;            /* Collée tout en haut */
+    z-index: 1000;     /* S'assure qu'elle passe AU-DESSUS de tout le reste */
+}
+
+nav {
+    display: flex;     /* Aligne le logo à gauche et les liens à droite */
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1050px; /* Largeur max pour ne pas que ça soit trop étiré sur grands écrans */
+    margin: 0 auto;    /* Centre la barre horizontalement */
+    padding: 1.2rem 2rem;
+}
+
+/* Ton logo spécifique (ESEN ?) */
+.logoesen {
+    width: 150px;
+    height: 80px;
+}
+
+.logo {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -1px; /* Rapproche un peu les lettres */
+}
+
+/* Les liens du menu (Home, Shop...) */
+.nav-links a {
+    color: var(--dark);
+    margin-left: 2rem;    /* Espace entre chaque lien */
+    font-weight: 500;
+    transition: 0.3s;     /* Animation fluide de la couleur */
+}
+
+.nav-links a:hover {
+    color: var(--primary); /* Devient violet au survol */
+}
+
+/* Bouton d'action principal (Contact/Buy) */
+.cta-btn {
+    background: var(--primary);
+    color: white !important; /* Force le texte en blanc */
+    padding: 0.6rem 1.8rem;  /* Rembourrage : Haut/Bas Gauche/Droite */
+    border-radius: 50px;     /* Bords très arrondis (pilule) */
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3); /* Ombre violette brillante */
+    transition: 0.3s;
+}
+
+.cta-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px); /* Le bouton monte légèrement */
+    box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4); /* L'ombre grandit */
+}
+
+/* ==========================================================================
+   4. Bannière d'accueil
+   --------------------------------------------------------------------------
+   Le gros bloc coloré en haut de la page d'accueil.
+   ========================================================================== */
+.hero {
+    /* Dégradé du violet foncé vers le violet clair en diagonale */
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    margin-bottom: 3rem;
+    
+    /* Forme géométrique stylée (coupe le bas en biais) */
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); 
+}
+
+.hero h1 {
+    font-size: 3.5rem; /* Très gros texte */
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;      /* Légèrement transparent pour le style */
+    margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   5. MISE EN PAGE & GRILLE (GRID)
+   --------------------------------------------------------------------------
+   Gère l'alignement des cartes produits.
+   C'est la partie "Responsive" (s'adapte au mobile).
+   ========================================================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1;           /* Pousse le footer vers le bas si la page est vide */
+    width: 100%;
+}
+
+.grid {
+    display: grid;
+    /* Crée autant de colonnes que possible. Minimum 300px de large par colonne. */
+    /* Si l'écran est petit (mobile), ça passe automatiquement à 1 colonne. */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 2.5rem;       /* Espace entre les cartes */
+    padding-bottom: 50px;
+}
+
+/* ==========================================================================
+   6. CARTES PRODUITS (Cards)
+   --------------------------------------------------------------------------
+   Design des boîtes Shop et Services.
+   ========================================================================== */
+.card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;    /* Empêche l'image de dépasser des bords arrondis */
+    box-shadow: var(--shadow);
+    transition: transform 0.4s ease, box-shadow 0.4s ease; /* Animation douce */
+    border: 1px solid rgba(0,0,0,0.03); /* Bordure ultra fine presque invisible */
+    
+    /* Pour que le bouton soit toujours aligné en bas */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Effet quand on passe la souris sur la carte */
+.card:hover {
+    transform: translateY(-10px) scale(1.02); /* Monte et grossit un tout petit peu */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15); /* Grosse ombre "effet 3D" */
+}
+
+.card-img {
+    height: 220px;
+    background-color: #eee; /* Gris si l'image ne charge pas */
+    background-size: cover; /* L'image remplit tout l'espace sans déformation */
+    background-position: center; /* Centre l'image */
+}
+
+.card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Remplit l'espace vide pour pousser le prix/bouton en bas */
+}
+
+.card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.card p {
+    color: #636e72;    /* Gris texte */
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.price {
+    font-size: 1.4rem;
+    color: var(--primary);
+    font-weight: 700;     /* Gras */
+    display: block;
+    margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   7. BARRE DE RECHERCHE
+   ========================================================================== */
+#searchBar {
+    width: 100%;
+    padding: 18px 25px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    border: 2px solid #eee;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow);
+    outline: none;       /* Enlève la bordure bleue par défaut du navigateur */
+    transition: 0.3s;
+}
+
+/* Quand on clique dans la barre de recherche */
+#searchBar:focus {
+    border-color: var(--primary); /* La bordure devient violette */
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1); /* Halo lumineux */
+}
+
+/* ==========================================================================
+   8. FORMULAIRES (Page Contact)
+   ========================================================================== */
+.form-box {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    max-width: 600px;  /* Largeur max du formulaire */
+    width: 100%;
+    margin: 0 auto;    /* Centré */
+}
+
+.form-box h2 {
+    margin-bottom: 1rem;
+    color: var(--primary);
+    text-align: center;
+}
+
+form label {
+    display: block;    /* Force le label à être sur sa propre ligne */
+    font-weight: 600;
+    margin-bottom: 8px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--dark);
+}
+
+/* Style commun pour les Inputs, Zones de texte et Listes déroulantes */
+form input, 
+form textarea, 
+form select {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: #f9f9f9;
+    outline: none;
+    transition: 0.3s;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Effet Focus sur les champs de formulaire */
+form input:focus, 
+form textarea:focus, 
+form select:focus {
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+}
+
+/* Bouton Envoyer */
+button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    margin-top: 30px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer; /* Change le curseur en petite main */
+    transition: 0.3s;
+}
+
+button[type="submit"]:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+}
+
+/* ==========================================================================
+   9. FOOTER (Pied de page)
+   ========================================================================== */
+footer {
+    background-color: var(--dark);
+    color: white;
+    padding: 3rem 1rem;
+    margin-top: auto;   /* Pousse le footer tout en bas de l'écran */
+    position: relative; /* Nécessaire pour positionner le bouton "Scroll Up" */
+    border-top: 5px solid var(--primary); /* Ligne violette décorative en haut */
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;      /* Alignement horizontal */
+    flex-wrap: wrap;    /* Permet de passer à la ligne sur mobile */
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-credits h4 {
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.footer-nav a {
+    color: #b2bec3; /* Gris clair */
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.footer-nav a:hover {
+    color: var(--accent); /* Devient orange au survol */
+}
+
+/* Lien vers l'université */
+.uni-link {
+    background: rgba(255,255,255,0.1); /* Fond blanc transparent */
+    padding: 10px 20px;
+    border-radius: 30px;
+    color: white;
+    font-size: 0.9rem;
+    transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.uni-link:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+/* Lien LinkedIn (Ajouté par toi) */
+.p-link {    
+    color: white;
+    font-size: 0.9rem;
+    transition: 0.3s;      
+}
+.p-link:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+/* Bouton pour remonter en haut (Flèche) */
+.scroll-btn {
+    position: absolute; /* Position libre par rapport au footer */
+    top: -25px;         /* Dépasse de 25px vers le haut */
+    right: 50%;         /* Centré horizontalement */
+    transform: translateX(50%); /* Correction pour centrer parfaitement */
+    
+    background: var(--accent);
+    color: var(--dark);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Rend le bouton parfaitement rond */
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: 0.3s;
+    
+    /* Centre la flèche dans le rond */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-btn:hover {
+    transform: translateX(50%) translateY(-5px); /* Monte un peu au survol */
+    background: #ffaa00; /* Devient orange plus foncé */
+}
